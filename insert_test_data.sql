@@ -12,5 +12,5 @@ VALUES (
     'Gold',
     'Smiths',
     'gold@example.com',
-    '$2b$10$Rk5cbXP0pZSVm0PQUQ1ijdJFfxp4r9mM3i9FXE.NFrjIR3JghJCha'
+    '$2a$10$SR62f5AQJZ5cZ4fzY4n6peJVIX4EggHD6Kyzm63y/J4iQ3ggnudYy'
 );
