@@ -16,14 +16,14 @@ node index.js
 ## The application uses the dotenv module to securely load environment variables instead of hardcoding database credentials in index.js.
 
 ## 1. Install dotenv:
-npm install dotenv
+`npm install dotenv`
 
 ## 2. Create a `.env` file in the project root and store the required database settings as environment variables.
 
 ## 3. Add `.env` to `.gitignore` so it is not pushed to GitHub.
 
 ## 4. Load the variables in index.js:
-require('dotenv').config();
+`require('dotenv').config();`
 
 ## 5. Use process.env.* values when creating the MySQL connection pool.
 
