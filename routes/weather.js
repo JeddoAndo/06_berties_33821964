@@ -15,6 +15,8 @@ router.get('/result', function(req, res, next) {
             return res.send("Error contacting weather service.");
         } else {
 
+            let weather;
+
             // Safely parse JSON
             try {
                 weather = JSON.parse(body);
