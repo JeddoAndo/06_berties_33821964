@@ -74,4 +74,9 @@ I did not sanitise the password or email fields. Passwords must remain unchanged
 
 ### Additional sanitisation
 
-I extendd sanitisation to other user input fields throughout the application to prevent cross-site scripting (XSS) attacks. This included sanitising the username during login, the book name on the add book page, and the search query on the search page. I did not sanitise passwords or emails, as this could corrupt valid input or break password hashing.
+I extend sanitisation to other user input fields throughout the application to prevent cross-site scripting (XSS) attacks. This included sanitising the username during login, the book name on the add book page, and the search query on the search page. I did not sanitise passwords or emails, as this could corrupt valid input or break password hashing.
+
+---
+
+### API Search Feature
+The `/api/books` endpoint was extened to accept a `search` query paramter. If provided, the API returns only those books whose names match the search text using a SQL LIKE query. Without a search term, the endpoint returns the full dataset.

@@ -5,22 +5,31 @@ const router = express.Router();
 // GET /api/books
 router.get('/books', function (req, res, next) {
 
-    // Query database to get all the books
-    let sqlquery = "SELECT * FROM books";
+    // Get optional search term
+    let search = req.query.search;
+
+    let sqlquery;
+    let params = [];
+
+    if (search) {
+        // Use SQL LIKE for partial matching
+        sqlquery = "SELECT * FROM books WHERE name LIKE ?";
+        params = ['%' + search + '%'];
+    } else {
+        // Default behaviour: return all books
+        sqlquery = "SELECT * FROM books";
+    }
 
     // Execute the SQL query
-    db.query(sqlquery, (err, result) => {
-
+    db.query(sqlquery, params, (err, result) => {
         if (err) {
-            // Return the error as JSON
             res.json(err);
             next(err);
-        }
-        else {
-            // Return the book list as JSON
+        } else {
             res.json(result);
         }
     });
+        
 });
 
 module.exports = router;
