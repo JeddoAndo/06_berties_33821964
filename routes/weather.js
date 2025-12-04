@@ -4,10 +4,10 @@ const router = express.Router();
 const request = require("request");
 
 // GET /weather
-router.get('/', function(req, res, next) {
+router.get('/result', function(req, res, next) {
 
     let apiKey = process.env.WEATHER_API_KEY; // <--- Safer than hardcoding
-    let city = "london";
+    let city = req.sanitize(req.query.city); // Get city from GET parameters, with sanitisation
     let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
 
     request(url, function (err, response, body) {
@@ -18,6 +18,11 @@ router.get('/', function(req, res, next) {
 
             var weather = JSON.parse(body);
 
+            // Handle invalid cities
+            if (weather.cod === "404") {
+                return res.send(`City "${city}" not found.`);
+            }
+
             var wmsg = "It is " + weather.main.temp +
                 " degrees in " + weather.name +
                 "! <br> The humidity now is: " +
@@ -26,6 +31,10 @@ router.get('/', function(req, res, next) {
             res.send(wmsg);
         }
     });
+});
+
+router.get('/form', function(req, res, next) {
+    res.render('weather.ejs');
 });
 
 module.exports = router;
