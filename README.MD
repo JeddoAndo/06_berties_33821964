@@ -80,3 +80,6 @@ I extend sanitisation to other user input fields throughout the application to p
 
 ### API Search Feature
 The `/api/books` endpoint was extened to accept a `search` query paramter. If provided, the API returns only those books whose names match the search text using a SQL LIKE query. Without a search term, the endpoint returns the full dataset.
+
+### API Price Range Filtering
+I extended the `/api/books` endpoint to accept optional `minprice` and `maxprice` query parameters. When supplied, the API returns only books whose price falls within the given range. These filters can be combined with the existing `search` parameter to provide flexible querying.

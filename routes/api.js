@@ -6,18 +6,29 @@ const router = express.Router();
 router.get('/books', function (req, res, next) {
 
     // Get optional search term
-    let search = req.query.search;
+    let search = req.query.search;          // optional text search
+    let minprice = req.query.minprice;      // optional min price
+    let maxprice = req.query.maxprice;      // optional max price
 
-    let sqlquery;
+    let sqlquery = "SElECT * FROM books WHERE 1=1";
     let params = [];
 
+    // Add search if given
     if (search) {
-        // Use SQL LIKE for partial matching
-        sqlquery = "SELECT * FROM books WHERE name LIKE ?";
-        params = ['%' + search + '%'];
-    } else {
-        // Default behaviour: return all books
-        sqlquery = "SELECT * FROM books";
+        sqlquery += " AND name LIKE ?";
+        params.push('%' + search + '%');
+    }
+
+    // Add min price if provided
+    if (minprice) {
+        sqlquery += " AND price >= ?";
+        params.push(minprice);
+    }
+
+    // Add max price if provided
+    if (maxprice) {
+        sqlquery += " AND price <= ?";
+        params.push(maxprice);
     }
 
     // Execute the SQL query
