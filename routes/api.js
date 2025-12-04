@@ -9,26 +9,52 @@ router.get('/books', function (req, res, next) {
     let search = req.query.search;          // optional text search
     let minprice = req.query.minprice;      // optional min price
     let maxprice = req.query.maxprice;      // optional max price
+    let sort = req.query.sort;              // sort option
 
     let sqlquery = "SElECT * FROM books WHERE 1=1";
     let params = [];
 
-    // Add search if given
+    // Search filter
     if (search) {
         sqlquery += " AND name LIKE ?";
         params.push('%' + search + '%');
     }
 
-    // Add min price if provided
+    // Minimum price filter
     if (minprice) {
         sqlquery += " AND price >= ?";
         params.push(minprice);
     }
 
-    // Add max price if provided
+    // Maximum price filter
     if (maxprice) {
         sqlquery += " AND price <= ?";
         params.push(maxprice);
+    }
+
+    // Sorting options
+    if (sort) {
+        switch (sort) {
+            case 'price_asc':
+                sqlquery += " ORDER BY price ASC";
+                break;
+
+            case 'price_desc':
+                sqlquery += " ORDER BY price DESC";
+                break;
+
+            case 'name_asc':
+                sqlquery += " ORDER BY name ASC";
+                break;
+
+            case 'name_desc':
+                sqlquery += " ORDER BY name DESC";
+                break;
+
+            default:
+                // If invalid sort option provided, ignore it
+                break;
+        }
     }
 
     // Execute the SQL query

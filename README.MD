@@ -83,3 +83,13 @@ The `/api/books` endpoint was extened to accept a `search` query paramter. If pr
 
 ### API Price Range Filtering
 I extended the `/api/books` endpoint to accept optional `minprice` and `maxprice` query parameters. When supplied, the API returns only books whose price falls within the given range. These filters can be combined with the existing `search` parameter to provide flexible querying.
+
+### API Sorting Extension
+I extended the `/api/books` API to support a `sort` query parameter. The allowed values are:
+
+- `price_asc` - sort by price low to high
+- `price_desc` - sort by price high to low
+- `name_asc` - sort by title A-Z
+- `name_desc` - sort by title Z-A
+
+Sorting can be combined with the existing `search`, `minprice`, and `maxprice` parameters to provide flexible and powerful queries.
